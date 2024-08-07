@@ -1,0 +1,14 @@
+services:
+  postgres-nestjs-db:
+    image: mysql:8.3.0
+    container_name: proyecto-hospital
+    restart: always
+    environment:
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - ${DB_PORT}:${DB_PORT}
