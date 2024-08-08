@@ -35,6 +35,7 @@
 
     <!--Script-->
     <script src="{{ url('plugins/chart.js/Chart.min.js')  }}"></script>
+    <script src="{{ url('plugins/jquery-knob/jquery.knob.min.js')  }}"></script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -89,7 +90,7 @@
                                     </p>
                                 </a>
 
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview" style="display: none">
                                     <li class="nav-item">
                                         <a href="{{ route('admin.usuarios.create') }}" class="nav-link active">
                                             <i class="far fa-circle nav-icon"></i>
@@ -108,7 +109,7 @@
                         @endcan
 
                         @can('admin.secretarias.index')
-                            <li class="nav-item menu-open">
+                            <li class="nav-item menu-open" >
                                 <a href="#" class="nav-link active">
                                     <i class="bi bi-person-rolodex"></i>
                                     <p>
@@ -117,7 +118,7 @@
                                     </p>
                                 </a>
 
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview" style="display: none">
                                     <li class="nav-item">
                                         <a href="{{ route('admin.secretarias.create') }}" class="nav-link active">
                                             <i class="far fa-circle nav-icon"></i>
@@ -148,7 +149,7 @@
                                     </p>
                                 </a>
 
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview" style="display: none">
                                     <li class="nav-item">
                                         <a href="{{ route('admin.pacientes.create') }}" class="nav-link active">
                                             <i class="far fa-circle nav-icon"></i>
@@ -178,7 +179,7 @@
                                     </p>
                                 </a>
 
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview" style="display: none">
                                     <li class="nav-item">
                                         <a href="{{ route('admin.consultorios.create') }}" class="nav-link active">
                                             <i class="far fa-circle nav-icon"></i>
@@ -208,7 +209,7 @@
                                     </p>
                                 </a>
 
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview" style="display: none">
                                     <li class="nav-item">
                                         <a href="{{ route('admin.doctores.create') }}" class="nav-link active">
                                             <i class="far fa-circle nav-icon"></i>
@@ -238,7 +239,7 @@
                                     </p>
                                 </a>
 
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview" style="display: none">
                                     <li class="nav-item">
                                         <a href="{{ route('admin.horarios.create') }}" class="nav-link active">
                                             <i class="far fa-circle nav-icon"></i>
@@ -266,7 +267,7 @@
                                     </p>
                                 </a>
 
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview" style="display: none">
                                     @can('admin.eventos.store')
                                         <li class="nav-item">
                                             <a href="{{ route('admin.index') }}" class="nav-link active">
@@ -297,7 +298,7 @@
                                         </p>
                                     </a>
 
-                                    <ul class="nav nav-treeview">
+                                    <ul class="nav nav-treeview" style="display: none">
 
                                         <li class="nav-item">
                                             <a href="{{ route('admin.index') }}" class="nav-link active">
@@ -318,6 +319,7 @@
                             @endcan
                         @endif
 
+                        @can('admin.reportes')
                         <li class="nav-item menu-open">
                             <a href="#" class="nav-link active">
                                 <i class="bi bi-file-earmark-bar-graph-fill"></i>
@@ -327,7 +329,7 @@
                                 </p>
                             </a>
 
-                            <ul class="nav nav-treeview">
+                            <ul class="nav nav-treeview" style="display: none">
                                 <li class="nav-item">
                                     <a href="{{ route('admin.reportes') }}" class="nav-link active">
                                         <i class="far fa-circle nav-icon"></i>
@@ -339,7 +341,7 @@
                             </ul>
 
                         </li>
-
+                        @endcan
                         @can('admin.historials.index')
                             <li class="nav-item menu-open">
                                 <a href="#" class="nav-link active">
@@ -350,7 +352,7 @@
                                     </p>
                                 </a>
 
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview" style="display: none">
                                     <li class="nav-item">
                                         <a href="{{ route('admin.historials.index') }}" class="nav-link active">
                                             <i class="far fa-circle nav-icon"></i>
@@ -379,7 +381,7 @@
                                     </p>
                                 </a>
 
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview" style="display: none">
                                     <li class="nav-item">
                                         <a href="{{ route('admin.pagos.index') }}" class="nav-link active">
                                             <i class="far fa-circle nav-icon"></i>

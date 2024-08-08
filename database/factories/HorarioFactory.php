@@ -11,7 +11,7 @@ class HorarioFactory extends Factory
     public function definition()
     {
         return [
-            'dia' => $this->faker->dayOfWeek(),
+            'dia' => $this->faker->randomElement(['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado']),
             'hora_inicio' => $this->faker->time(),
             'hora_fin' => $this->faker->time(),
             'doctor_id' => Doctor::factory(),

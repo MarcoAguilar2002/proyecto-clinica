@@ -9,6 +9,6 @@ class HistorialSeeder extends Seeder
 {
     public function run()
     {
-        Historial::factory()->count(10)->create();
+        Historial::factory()->count(400)->create();
     }
 }

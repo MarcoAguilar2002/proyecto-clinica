@@ -87,7 +87,7 @@ Route::delete('/admin/horarios/{id}/delete', [HorarioController::class, 'destroy
 
 
 //Reportes
-Route::get('/admin/reportes',[ReporteController::class, 'index'])->name('admin.reportes')->middleware('auth'); 
+Route::get('/admin/reportes',[ReporteController::class, 'index'])->name('admin.reportes')->middleware('auth','can:admin.reportes'); 
 
 //Historial Clinico
 Route::get('/admin/historial', [HistorialController::class, 'index'])->name('admin.historials.index')->middleware('auth','can:admin.historials.index');
