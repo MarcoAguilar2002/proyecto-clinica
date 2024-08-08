@@ -11,6 +11,13 @@ class ReporteController extends Controller
     public function index()
     {
 
+        [$pagosTotales, $rangoFechas] = $this->reportebjgg();
+
+        return view('admin.reportes', compact('pagosTotales', 'rangoFechas'));
+    }
+
+    private function reportebjgg()
+    {
         $rangoFechas = Pago::select(
             DB::raw('min(fecha_pago) as fecha_inicio'),
             DB::raw('max(fecha_pago) as fecha_fin')
@@ -24,6 +31,6 @@ class ReporteController extends Controller
             )->groupBy('doctors.especialidad')
             ->get();
 
-        return view('admin.reportes', compact('pagosTotales', 'rangoFechas'));
+        return [$pagosTotales, $rangoFechas];
     }
 }
