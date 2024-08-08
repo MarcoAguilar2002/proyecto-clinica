@@ -126,9 +126,14 @@ class DatabaseSeeder extends Seeder
 
 
         //Creacopm de pacientes
+        $this->call([UserSeeder::class,]);
         $this->call([PacienteSeeder::class,]);
-
-        
+        $this->call([ConsultorioSeeder::class,]);
+        $this->call([DoctorSeeder::class,]);
+        $this->call([HorarioSeeder::class,]);
+        $this->call([EventSeeder::class,]);
+        $this->call([HistorialSeeder::class,]);
+        $this->call([PagoSeeder::class,]);
 
     }
 }
