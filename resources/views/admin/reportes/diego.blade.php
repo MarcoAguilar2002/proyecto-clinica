@@ -14,6 +14,7 @@
                     <div id="chartdiv" style="width: 100%; height: 300px;"></div>
                 </div>
             </div>
+
             <div class="col-md-4">
                 <ul class="chart-legend clearfix">
                     <li><i class="far fa-circle" style="color: #FF6F61;"></i> A+</li>
@@ -51,6 +52,7 @@
             })
         );
 
+        
         // Crear la serie
         var series = chart.series.push(
             am5percent.PieSeries.new(root, {
