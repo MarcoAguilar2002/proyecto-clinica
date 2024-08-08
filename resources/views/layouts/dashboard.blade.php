@@ -11,6 +11,7 @@
         href="{{ url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback') }}">
     <link rel="stylesheet" href="{{ url('plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href={{ url('dist/css/adminlte.min.css?v=3.2.0') }}>
+    <link rel="stylesheet" href="{{ url('plugins/chart.js/Chart.css') }}">
     <!--Iconos de bootstrap-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!--JSQUERY-->
@@ -28,8 +29,12 @@
     <!--FULL CALENDAR-->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
     <script src="{{ url('calendar/es.global.js') }}"></script>
-    <!--Clas de bootstrap-->
+    
+    <!--CKEDITOR-->
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/42.0.2/ckeditor5.css" />
 
+    <!--Script-->
+    <script src="{{ url('plugins/chart.js/Chart.min.js')  }}"></script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -74,9 +79,6 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-
-
-
                         @can('admin.usuarios.index')
                             <li class="nav-item menu-open">
                                 <a href="#" class="nav-link active">
@@ -284,9 +286,116 @@
 
                             </li>
                         @endcan
+                        @if (Auth::check() && Auth::user()->doctor)
+                            @can('admin.doctor.cita')
+                                <li class="nav-item menu-open">
+                                    <a href="#" class="nav-link active">
+                                        <i class="bi bi-ticket-detailed-fill"></i>
+                                        <p>
+                                            Citas
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+
+                                    <ul class="nav nav-treeview">
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.index') }}" class="nav-link active">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Mis citas</p>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.doctor.cita') }}" class="nav-link active">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Cambiar estado</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </li>
+                            @endcan
+                        @endif
+
+                        <li class="nav-item menu-open">
+                            <a href="#" class="nav-link active">
+                                <i class="bi bi-file-earmark-bar-graph-fill"></i>
+                                <p>
+                                    Reportes
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.reportes') }}" class="nav-link active">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Ver Reportes</p>
+                                    </a>
+                                </li>
 
 
+                            </ul>
 
+                        </li>
+
+                        @can('admin.historials.index')
+                            <li class="nav-item menu-open">
+                                <a href="#" class="nav-link active">
+                                    <i class="bi bi-file-earmark-medical-fill"></i>
+                                    <p>
+                                        Historial
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.historials.index') }}" class="nav-link active">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Listado Historial</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.historials.create') }}" class="nav-link active">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Crear Historial</p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                        @endcan
+
+                        @can('admin.pagos.index')
+                            <li class="nav-item menu-open">
+                                <a href="#" class="nav-link active">
+                                    <i class="bi bi-cash-stack"></i>
+                                    <p>
+                                        Pagos
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.pagos.index') }}" class="nav-link active">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Listado de pagos</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.pagos.create') }}" class="nav-link active">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Registrar pago</p>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </li>
+                        @endcan
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"

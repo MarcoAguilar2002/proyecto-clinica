@@ -20,12 +20,46 @@
         }
     </style>
 
+    <style>
+        .estado-curso {
+            color: blue;
+        }
+
+        .estado-cancelada {
+            color: red;
+        }
+
+        .estado-finalizada {
+            color: green;
+        }
+
+        .estado-punto {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .estado-curso .estado-punto {
+            background-color: blue;
+        }
+
+        .estado-cancelada .estado-punto {
+            background-color: red;
+        }
+
+        .estado-finalizada .estado-punto {
+            background-color: green;
+        }
+    </style>
+
 
     <div class="row container">
         <h5><b>Bienvenido: </b>{{ Auth::user()->name }} / <b>Rol:</b> {{ Auth::user()->roles->pluck('name')->first() }}</h5>
     </div>
     <hr>
-
+    
     <div class="row">
         @can('admin.usuarios.index')
             <div class="col-lg-3 col-6">
@@ -51,10 +85,10 @@
                         <p>Secretarias</p>
                     </div>
                     <div class="icon">
-                        <i class="ion fas bi bi-file-person"></i>
+                        <i class="ion fas bi bi bi-person-rolodex"></i>
                     </div>
                     <a href="{{ route('admin.secretarias.index') }}" class="small-box-footer">Más información <i
-                            class="fas bi bi-file-person"></i></a>
+                            class="fas bi bi-person-rolodex"></i></a>
                 </div>
             </div>
         @endcan
@@ -67,10 +101,10 @@
                         <p>Pacientes</p>
                     </div>
                     <div class="icon">
-                        <i class="ion fas bi bi-file-person"></i>
+                        <i class="ion fas bi bi-person-fill-check"></i>
                     </div>
                     <a href="{{ route('admin.pacientes.index') }}" class="small-box-footer">Más información <i
-                            class="fas bi bi-file-person"></i></a>
+                            class="fas bi bi-person-fill-check"></i></a>
                 </div>
             </div>
         @endcan
@@ -127,97 +161,98 @@
     </div>
 
     @can('admin.eventos.store')
-    <div class="d-flex justify-content-center">
-        <div class="col-12 col-md-10">
-            <div class="card card-outline card-warning">
-                <div class="card-header">
-                    <h3 class="card-title">Calendario de reserva de citas médicas</h3>
-                    <div class="card-tools">
+        <div class="d-flex justify-content-center">
+            <div class="col-12 col-md-10">
+                <div class="card card-outline card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">Calendario de reserva de citas médicas</h3>
+                        <div class="card-tools">
+                        </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <!-- Button trigger modal -->
-                    <div class="row">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                            Reservar cita médica
-                        </button>
-                        <a href="{{route('admin.reservas')}}" class="btn btn-success ml-3"> <i class="bi bi-calendar-event-fill"></i>  Ver Reservas</a>
-                    </div>
+                    <div class="card-body">
+                        <!-- Button trigger modal -->
+                        <div class="row">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                Reservar cita médica
+                            </button>
+                            <a href="{{ route('admin.reservas') }}" class="btn btn-success ml-3"> <i
+                                    class="bi bi-calendar-event-fill"></i> Ver Reservas</a>
+                        </div>
 
-                    <!-- Modal -->
-                    <form action="{{ route('admin.eventos.store') }}" method="POST" onsubmit="prepararDatos()">
-                        @csrf
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Registro de cita médica</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="especialidad">Especialidad</label>
-                                                    <select name="consultorio_id" id="especialidad" class="form-control">
-                                                        <option>Seleccione una especialidad...</option>
-                                                        @foreach ($consultorios as $consultorio)
-                                                            <option value="{{ $consultorio->especialidad }}">
-                                                                {{ $consultorio->especialidad }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="fecha_reserva">Fecha de reserva</label>
-                                                    <input type="date" id="fecha_reserva" class="form-control"
-                                                        min="{{ date('Y-m-d') }}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="doctor">Doctor</label>
-                                                    <select name="doctor_id" id="doctor" class="form-control">
-                                                        <!-- Opciones se cargarán mediante JavaScript -->
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="form-label">Seleccione una hora</label>
-                                                    <div class="btn-group btn-group-toggle horarios-container"
-                                                        data-toggle="buttons" id="horarios-container">
-                                                        <!-- Los horarios se cargarán aquí mediante JavaScript -->
+                        <!-- Modal -->
+                        <form action="{{ route('admin.eventos.store') }}" method="POST" onsubmit="prepararDatos()">
+                            @csrf
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Registro de cita médica</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="especialidad">Especialidad</label>
+                                                        <select name="consultorio_id" id="especialidad" class="form-control">
+                                                            <option>Seleccione una especialidad...</option>
+                                                            @foreach ($consultorios as $consultorio)
+                                                                <option value="{{ $consultorio->especialidad }}">
+                                                                    {{ $consultorio->especialidad }}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="fecha_reserva">Fecha de reserva</label>
+                                                        <input type="date" id="fecha_reserva" class="form-control"
+                                                            min="{{ date('Y-m-d') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="doctor">Doctor</label>
+                                                        <select name="doctor_id" id="doctor" class="form-control">
+                                                            <!-- Opciones se cargarán mediante JavaScript -->
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Seleccione una hora</label>
+                                                        <div class="btn-group btn-group-toggle horarios-container"
+                                                            data-toggle="buttons" id="horarios-container">
+                                                            <!-- Los horarios se cargarán aquí mediante JavaScript -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="color" id="color">
+                                                <input type="hidden" name="start" id="start">
+                                                <input type="hidden" name="end" id="end">
                                             </div>
-                                            <input type="hidden" name="color" id="color">
-                                            <input type="hidden" name="start" id="start">
-                                            <input type="hidden" name="end" id="end">
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger"
-                                            data-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Registrar</button>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-primary">Registrar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
 
 
 
 
-                    <div id='calendar'></div>
+                        <div id='calendar'></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     @endcan
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -229,8 +264,8 @@
                     @foreach ($eventos as $evento)
                         {
                             title: '{{ $evento->title }}',
-                            start: '{{\Carbon\Carbon::parse($evento->start)->format('Y-m-d')}}',
-                            end: '{{\Carbon\Carbon::parse($evento->end)->format('Y-m-d')}}',
+                            start: '{{ \Carbon\Carbon::parse($evento->start)->format('Y-m-d') }}',
+                            end: '{{ \Carbon\Carbon::parse($evento->end)->format('Y-m-d') }}',
                             color: '{{ $evento->color }}'
                         },
                     @endforeach
@@ -328,6 +363,102 @@
         });
     </script>
 
+    <!--Doctor-->
+    @can('admin.doctor.cita')
+        <div class="col-md-12">
+            <div class="card card-outline card-primary">
+                <div class="card-header row">
+                    <div class="col-md-6 d-flex align-items-center">
+                        <h3 class="card-title mb-0">Calendario de atención</h3>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center justify-content-end">
+                    </div>
+                </div>
 
+                <div class="card-body ">
+                    <div class="col-md-12">
+                        <table id="example2" class="table table-hover ">
+                            <thead>
+                                <tr class="text-center">
+                                    <th scope="col">N°</th>
+                                    <th scope="col">Paciente</th>
+                                    <th scope="col">Fecha y hora de Reserva</th>
+                                    <th scope="col">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody class="">
+                                <?php $contador = 1; ?>
+                                @foreach ($eventos as $evento)
+                                    @if (Auth::user()->doctor->id == $evento->doctor_id)
+                                        <tr class="text-center">
+                                            <td>{{ $contador++ }}</td>
+                                            <td>{{ $evento->user->name }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($evento->start)->format('Y-m-d') . ' ' . \Carbon\Carbon::parse($evento->end)->format('H:i:s') }}
+                                            </td>
+                                            <td
+                                                class="@if ($evento->estado == 'En Curso') estado-curso @elseif($evento->estado == 'Cancelada') estado-cancelada @elseif($evento->estado == 'Finalizada') estado-finalizada @endif">
+                                                <span class="estado-punto"></span>{{ $evento->estado }}
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <script>
+                        $(function() {
+                            $("#example2").DataTable({
+                                "pageLength": 4,
+                                "language": {
+                                    "emptyTable": "No hay información",
+                                    "info": "Mostrando _START_ a _END_ de _TOTAL_ de Citas",
+                                    "infoEmpty": "Mostrando 0 a 0 de 0 Citas",
+                                    "infoFiltered": "(Filtrado de _MAX_ total de Citas)",
+                                    "lengthMenu": "Mostrar _MENU_ Citas",
+                                    "infoPostFix": "",
+                                    "thousands": ",",
+                                    "loadingRecords": "Cargando...",
+                                    "processing": "Procesando...",
+                                    "search": "Buscador:",
+                                    "zeroRecords": "Sin resultados encontrados",
+                                    "paginate": {
+                                        "first": "Primero",
+                                        "last": "Ultimo",
+                                        "next": "Siguiente",
+                                        "previous": "Anterior"
+                                    }
+                                },
+                                "responsive": true,
+                                "lengthChange": true,
+                                "autoWidth": false,
+                                buttons: [{
+                                    extend: 'collection',
+                                    text: 'Reportes',
+                                    orientation: 'landscape',
+                                    buttons: [{
+                                        text: 'Copiar',
+                                        extend: 'copy',
+                                    }, {
+                                        extend: 'pdf'
+                                    }, {
+                                        extend: 'csv'
+                                    }, {
+                                        extend: 'excel'
+                                    }, {
+                                        text: 'Imprimir',
+                                        extend: 'print'
+                                    }]
+                                }, {
+                                    extend: 'colvis',
+                                    text: 'Visor de columnas',
+                                    collectionLayout: 'fixed three-column'
+                                }],
+                            }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    @endcan
 
 @endsection

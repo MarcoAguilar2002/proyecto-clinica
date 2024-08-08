@@ -81,11 +81,37 @@ class RoleSeeder extends Seeder
          //Permisos para cita
          Permission::create(['name'=>'admin.eventos.store'])->syncRoles([$usuario]);
          Permission::create(['name'=>'admin.reservas'])->syncRoles([$admin,$usuario]);
-         Permission::create(['name'=>'admin.reservas.destroy'])->syncRoles([$admin,$usuario]);
+         Permission::create(['name'=>'admin.reservas.destroy'])->syncRoles([$admin,$usuario,$doctor]);
+         Permission::create(['name'=>'admin.doctor.cita'])->syncRoles([$doctor]);
+         Permission::create(['name'=>'admin.doctor.editarCita'])->syncRoles([$doctor]);
+
+
+
+
+         //Roles
+         //Historial Clinico
+         Permission::create(['name'=>'admin.historials.index'])->syncRoles([$admin,$doctor]);
+         Permission::create(['name'=>'admin.historials.create'])->syncRoles([$admin,$doctor]);
+         Permission::create(['name'=>'admin.historials.store'])->syncRoles([$admin,$doctor]);
+         Permission::create(['name'=>'admin.historials.pdf'])->syncRoles([$admin,$doctor]);
+         Permission::create(['name'=>'admin.historials.show'])->syncRoles([$admin,$doctor]);
+         Permission::create(['name'=>'admin.historials.edit'])->syncRoles([$admin,$doctor]);
+         Permission::create(['name'=>'admin.historials.update'])->syncRoles([$admin,$doctor]);
+         Permission::create(['name'=>'admin.historials.destroy'])->syncRoles([$admin,$doctor]);
+
+        //Permisos Pagos
+         Permission::create(['name'=>'admin.pagos.index'])->syncRoles([$admin,$secretaria]);
+         Permission::create(['name'=>'admin.pagos.create'])->syncRoles([$admin,$secretaria]);
+         Permission::create(['name'=>'admin.pagos.store'])->syncRoles([$admin,$secretaria]);
+         Permission::create(['name'=>'admin.pagos.pdf'])->syncRoles([$admin,$secretaria]);
+         Permission::create(['name'=>'admin.pagos.show'])->syncRoles([$admin,$secretaria]);
+         Permission::create(['name'=>'admin.pagos.edit'])->syncRoles([$admin,$secretaria]);
+         Permission::create(['name'=>'admin.pagos.update'])->syncRoles([$admin,$secretaria]);
+         Permission::create(['name'=>'admin.pagos.destroy'])->syncRoles([$admin,$secretaria]);
+
 
          //ajax
          Permission::create(['name'=>'admin.horarios.cargar'])->syncRoles([$admin,$secretaria]);
-    
     
         }
 }

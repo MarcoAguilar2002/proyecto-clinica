@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Doctor;
 use App\Models\User;
+use App\Models\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,22 @@ class DoctorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+    public function citas(){
+        $eventos = Event::all();
+        return view('admin.cancelarCita',compact("eventos"));
+    }
+
+    public function editarCita($id){
+        $evento = Event::find($id);
+        $evento->estado = "Finalizada";
+        $evento->save();
+        return redirect()->route('admin.reservas')
+        ->with('mensaje','Se finalizó la cita correctamente')
+        ->with('icono','success')
+        ->with('titulo','Cita Finalizada');
+    }
+
     public function store(Request $request)
     {
         //

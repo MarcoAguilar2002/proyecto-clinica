@@ -32,6 +32,7 @@
     }
 </style>
     <hr>
+
     <div class="container">
         <table id="example1" class="table table-hover text-center">
             <thead>
